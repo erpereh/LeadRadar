@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Color tokens ─────────────────────────────────────────── */
+:root {
+  --bg: #E8EDF8;
+  --card: #FFFFFF;
+  --card-glass: rgba(255, 255, 255, 0.75);
+  --text: #1E1B4B;
+  --secondary: #6B7280;
+  --border: #E5E7EB;
+  --accent-start: #7C3AED;
+  --accent-end: #A855F7;
+  --shadow: rgba(124, 58, 237, 0.06);
+  --shadow-hover: rgba(124, 58, 237, 0.15);
+}
+
+.dark {
+  --bg: #0F0F1A;
+  --card: #1A1A2E;
+  --card-glass: rgba(26, 26, 46, 0.85);
+  --text: #F1F0FF;
+  --secondary: #9B99C4;
+  --border: #2D2D4E;
+  --accent-start: #7C3AED;
+  --accent-end: #A855F7;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --shadow-hover: rgba(124, 58, 237, 0.25);
+}
+
+/* ─── Smooth theme transition ───────────────────────────────── */
+*,
+*::before,
+*::after {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Exception: don't transition transforms or opacity — causes jank on animations */
+.no-transition {
+  transition: none !important;
+}
+
+/* ─── Base ──────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Glassmorphism cards ───────────────────────────────────── */
+@layer components {
+  .glass-card {
+    background: var(--card-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px var(--shadow);
+    border-radius: 1.25rem;
+  }
+
+  .glass-card-solid {
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 16px var(--shadow);
+    border-radius: 1.25rem;
+  }
+
+  .violet-gradient {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+  }
+
+  .violet-gradient-text {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* ─── Animations ────────────────────────────────────────────── */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pageFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulseScale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease both;
+}
+
+.animate-page-fade {
+  animation: pageFade 0.2s ease both;
+}
+
+.animate-pulse-scale {
+  animation: pulseScale 1s ease-in-out infinite;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
